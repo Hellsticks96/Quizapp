@@ -1,0 +1,7 @@
+.card-container{
+    background-color: rgb(95, 95, 95) !important;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
