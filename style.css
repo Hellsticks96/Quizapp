@@ -7,7 +7,7 @@
 }
 
 .card-title {
-    margin: 16px;
+    margin: 16px !important;
 }
 
 .main-card-body {
