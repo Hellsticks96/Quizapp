@@ -5,3 +5,31 @@
     justify-content: center;
     align-items: center;
 }
+
+.card-title {
+    margin: 16px;
+}
+
+.main-card-body {
+    padding: 0 !important;
+}
+
+.quiz-card {
+    width: 45rem !important;
+    margin: 0 20px;
+    border: 3px solid lightgray;
+}
+
+.question-card {
+    margin: 0 16px;
+}
+
+.quiz-card-footer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid rgba(0, 0, 0, 0.4);
+    margin-top: 16px;
+    padding: 8px;
+    align-items: center;
+}
+

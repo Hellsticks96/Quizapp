@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <nav class="navbar bg-body-tertiary">
+    <nav class="navbar bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">
                 <img src="img/logo.png" alt="Bootstrap">
@@ -27,14 +27,42 @@
     </nav>
 
     <div class="card-container">
-        <div class="card" style="width: 18rem;">
-            <img src="..." class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
+        <div class="card quiz-card" style="width: 18rem;">
+            <img src="img/quiz-card-header-image.jpg" class="card-img-top">
+            <div class="card-body main-card-body">
+                <h5 class="card-title">Frage</h5>
+              
+                <div class="card question-card mb-2">
+                    <div class="card-body">
+                      Antwort
+                    </div>
+                  </div>
+
+                  <div class="card question-card mb-2">
+                    <div class="card-body">
+                      Antwort
+                    </div>
+                  </div>
+
+                  <div class="card question-card mb-2">
+                    <div class="card-body">
+                      Antwort
+                    </div>
+                  </div>
+
+                  <div class="card question-card mb-2">
+                    <div class="card-body">
+                      Antwort
+                    </div>
+                  </div>
+
+                  <div class="quiz-card-footer">
+                    <span>
+                        Frage <b>1</b> von <b>5</b>
+                    </span>
+
+                    <button type="button" class="btn btn-secondary">Nächste Frage</button>
+                  </div>
         </div>
     </div>
 </body>
