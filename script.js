@@ -48,7 +48,7 @@ let questions = [
 let i = 0;
 
 
-
+//<-------------------------------------------- main functions ----------------------------------------------------------->
 
 function init(){
     showQuestion();
@@ -57,13 +57,18 @@ function init(){
 }
 
 function nextQuestion(){
-    if(i == questions.length){
+    if(i == questions.length -1){
         i = 0;
     }else {
         i++;
     };
     init();
 }
+
+
+
+
+//<--------------------------------- show content functions --------------------------------------------->
 
 function showQuestion(){
     let questioncontainer = document.getElementById('questioncontainer');
@@ -93,6 +98,10 @@ function showQuestionCount(){
     questioncount.innerHTML = '';
     questioncount.innerHTML += returnQuestionCountHTML();
 }
+
+
+
+//<--------------------------------------------------- help and return funtions ----------------------------------------------->
 
 function returnQuestionHTML(question){
     return /*html*/`
