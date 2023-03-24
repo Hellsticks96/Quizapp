@@ -1,3 +1,12 @@
+body {
+    overflow: hidden;
+}
+
+.endscreen-design {
+    text-align: center;
+    margin: 32px 0;
+}
+
 .card-container{
     background-color: rgb(95, 95, 95) !important;
     min-height: 100vh;

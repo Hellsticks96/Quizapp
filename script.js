@@ -43,9 +43,19 @@ let questions = [
         "answer_4": "Feuerwehrmann",
         "right_answer": 3
     },
+
+    {
+        "question": "Wie viel Spaß macht programmieren?",
+        "answer_1": "1%",
+        "answer_2": "20%",
+        "answer_3": "10%",
+        "answer_4": "100%",
+        "right_answer": 4
+    },
 ];
 
 let i = 0;
+let rightanswers = 0;
 
 
 //<-------------------------------------------- main functions ----------------------------------------------------------->
@@ -58,12 +68,13 @@ function init(){
 
 function nextQuestion(){
     if(i == questions.length -1){
-        i = 0;
+        showEndscreen();
     }else {
         i++;
     };
-    
+
     document.getElementById('nextbutton').disabled = true;
+    resetButtons();
 
     init();
 }
@@ -74,10 +85,9 @@ function answer(sel){
     let idOfRightAnswer = question['right_answer'];
 
     if(sel == idOfRightAnswer){
-        console.log('Passt')
         document.getElementById(`answer${sel}`).parentNode.classList.add('bg-success');
+        rightanswers++;
     }else {
-        console.log('Depp!')
         document.getElementById(`answer${sel}`).parentNode.classList.add('bg-danger');
         document.getElementById(`answer${idOfRightAnswer}`).parentNode.classList.add('bg-success');
     };
@@ -107,10 +117,40 @@ function showQuestionCount(){
     questioncount.innerHTML += returnQuestionCountHTML();
 }
 
+function showEndscreen(){
+    let endscreen = document.getElementById('questionanswercontainer');
+    document.getElementById('cardheadimage').src = 'img/endscreen-quiz-card-header.jpg';
+    endscreen.classList.add('endscreen-design');
+    endscreen.innerHTML = '';
+
+    endscreen.innerHTML += /*html*/`
+    <h2>Herzlichen Glückwunsch</h2>
+    <h4>Sie haben das Quiz erfolgreich beendet</h4>
+    <span>Ihr Ergebnis: ${rightanswers} von ${questions.length} richtig beantwortet!</span>
+    <button onclick="reloadGame()" class="btn btn-secondary">Nochmal spielen!</button>
+    `;
+
+}
 
 
 //<--------------------------------------------------- help and return funtions ----------------------------------------------->
 
 function returnQuestionCountHTML(){
     return `Frage <b>${i+1}</b> von <b>${questions.length}</b>`;
+}
+
+function resetButtons(){
+    document.getElementById('answer1').parentNode.classList.remove('bg-success');
+    document.getElementById('answer1').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer2').parentNode.classList.remove('bg-success');
+    document.getElementById('answer2').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer3').parentNode.classList.remove('bg-success');
+    document.getElementById('answer3').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer4').parentNode.classList.remove('bg-success');
+    document.getElementById('answer4').parentNode.classList.remove('bg-danger');
+}
+
+function reloadGame(){
+    i = 0;
+    init();
 }
