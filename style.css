@@ -1,10 +1,13 @@
-body {
-    overflow: hidden;
-}
 
 .endscreen-design {
     text-align: center;
     margin: 32px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.endscreen-design button {
+    margin: 16px;
 }
 
 .card-container{
@@ -51,3 +54,8 @@ body {
     align-items: center;
 }
 
+@media (min-width: 1200px){
+    body {
+        overflow: hidden;
+    }
+}

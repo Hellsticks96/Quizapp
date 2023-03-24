@@ -124,9 +124,9 @@ function showEndscreen(){
     endscreen.innerHTML = '';
 
     endscreen.innerHTML += /*html*/`
-    <h2>Herzlichen Glückwunsch</h2>
-    <h4>Sie haben das Quiz erfolgreich beendet</h4>
-    <span>Ihr Ergebnis: ${rightanswers} von ${questions.length} richtig beantwortet!</span>
+    <h2>Herzlichen Glückwunsch!</h2>
+    <h4>Sie haben das Quiz erfolgreich beendet!</h4>
+    <span>Ihr Ergebnis: <b>${rightanswers}</b> von <b>${questions.length}</b> richtig beantwortet!</span>
     <button onclick="reloadGame()" class="btn btn-secondary">Nochmal spielen!</button>
     `;
 
@@ -151,6 +151,5 @@ function resetButtons(){
 }
 
 function reloadGame(){
-    i = 0;
-    init();
+    window.location.reload();
 }
