@@ -20,8 +20,17 @@
     border: 3px solid lightgray !important;
 }
 
-.question-card {
+.answer-card {
     margin: 0 16px;
+}
+
+.answer-card:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
+
+.bg-success, .bg-danger {
+    color: white;
 }
 
 .quiz-card-footer {

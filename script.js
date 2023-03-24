@@ -62,34 +62,42 @@ function nextQuestion(){
     }else {
         i++;
     };
+    
+    document.getElementById('nextbutton').disabled = true;
+
     init();
 }
 
+
+function answer(sel){
+    let question = questions[i];
+    let idOfRightAnswer = question['right_answer'];
+
+    if(sel == idOfRightAnswer){
+        console.log('Passt')
+        document.getElementById(`answer${sel}`).parentNode.classList.add('bg-success');
+    }else {
+        console.log('Depp!')
+        document.getElementById(`answer${sel}`).parentNode.classList.add('bg-danger');
+        document.getElementById(`answer${idOfRightAnswer}`).parentNode.classList.add('bg-success');
+    };
+
+    document.getElementById('nextbutton').disabled = false;
+}
 
 
 
 //<--------------------------------- show content functions --------------------------------------------->
 
 function showQuestion(){
-    let questioncontainer = document.getElementById('questioncontainer');
-    let question = questions[i]['question'];
-
-
-    questioncontainer.innerHTML = '';
-    questioncontainer.innerHTML += returnQuestionHTML(question);
+    document.getElementById('questioncontainer').innerHTML = questions[i]['question'];
 }
 
 function showAnswers(){
-    let answers = document.getElementById('answercontainer');
-    let answer_1 = questions[i]['answer_1'];
-    let answer_2 = questions[i]['answer_2'];
-    let answer_3 = questions[i]['answer_3'];
-    let answer_4 = questions[i]['answer_4'];
-
-    answers.innerHTML = '';
-    answers.innerHTML += returnAnswerHTML(answer_1, answer_2, answer_3, answer_4);
-
-
+    document.getElementById('answer1').innerHTML = questions[i]['answer_1'];
+    document.getElementById('answer2').innerHTML = questions[i]['answer_2'];
+    document.getElementById('answer3').innerHTML = questions[i]['answer_3'];
+    document.getElementById('answer4').innerHTML = questions[i]['answer_4'];
 }
 
 function showQuestionCount(){
@@ -102,40 +110,6 @@ function showQuestionCount(){
 
 
 //<--------------------------------------------------- help and return funtions ----------------------------------------------->
-
-function returnQuestionHTML(question){
-    return /*html*/`
-    Frage: ${question}
-    `;
-}
-
-function returnAnswerHTML(answer_1, answer_2, answer_3, answer_4){
-    return /*html*/`
-        <div class="card question-card mb-2">
-                        <div class="card-body">
-                            ${answer_1}
-                        </div>
-                    </div>
-
-                    <div class="card question-card mb-2">
-                        <div class="card-body">
-                            ${answer_2}
-                        </div>
-                    </div>
-
-                    <div class="card question-card mb-2">
-                        <div class="card-body">
-                            ${answer_3}
-                        </div>
-                    </div>
-
-                    <div class="card question-card mb-2">
-                        <div class="card-body">
-                            ${answer_4}
-                        </div>
-                    </div>
-    `;
-}
 
 function returnQuestionCountHTML(){
     return `Frage <b>${i+1}</b> von <b>${questions.length}</b>`;
