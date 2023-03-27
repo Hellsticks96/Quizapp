@@ -18,6 +18,10 @@
     align-items: center;
 }
 
+.progress {
+    border-radius: 0 !important;
+}
+
 .card-title {
     margin: 16px !important;
 }

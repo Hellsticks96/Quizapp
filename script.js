@@ -52,6 +52,15 @@ let questions = [
         "answer_4": "100%",
         "right_answer": 4
     },
+
+    {
+        "question": "Wer hat die geilste Community?",
+        "answer_1": "AfD",
+        "answer_2": "Developer Akademie",
+        "answer_3": "Sportschützenvereine",
+        "answer_4": "Southside Festival",
+        "right_answer": 2
+    },
 ];
 
 let i = 0;
@@ -69,7 +78,15 @@ function init(){
 function nextQuestion(){
     if(i == questions.length -1){
         showEndscreen();
+
+        document.getElementById('progressbar').innerHTML = `100%`;
+        document.getElementById('progressbar').style = `width: 100%`;
     }else {
+        let progress = (i +1) / questions.length;
+        progress = Math.round(progress * 100);
+    
+        document.getElementById('progressbar').innerHTML = `${progress}%`;
+        document.getElementById('progressbar').style = `width: ${progress}%`;
         i++;
     };
 
@@ -151,5 +168,55 @@ function resetButtons(){
 }
 
 function reloadGame(){
-    window.location.reload();
+    document.getElementById('cardheadimage').src = 'img/quiz-card-header-image.jpg';
+    document.getElementById('questionanswercontainer').classList.remove('endscreen-design');
+    document.getElementById('progressbar').innerHTML = `0%`;
+    document.getElementById('progressbar').style = `width: 0%`;
+    rightanswers = 0;
+    i = 0;
+    restoreCard();
+    init();
+}
+
+function restoreCard(){
+    let card = document.getElementById('questionanswercontainer');
+    card.innerHTML = '';
+
+    card.innerHTML += /*html*/`
+    <h5 id="questioncontainer" class="card-title"></h5>
+
+    <div id="answercontainer">
+        <div class="card answer-card mb-2" onclick="answer(1)">
+            <div id="answer1" class="card-body">
+                 Antwort
+            </div>
+        </div>
+
+        <div class="card answer-card mb-2" onclick="answer(2)">
+            <div id="answer2" class="card-body">
+                 Antwort
+            </div>
+        </div>
+
+        <div class="card answer-card mb-2" onclick="answer(3)">
+            <div id="answer3" class="card-body">
+                Antwort
+            </div>
+        </div>
+
+        <div class="card answer-card mb-2" onclick="answer(4)">
+            <div id="answer4" class="card-body">
+                Antwort
+            </div>
+        </div>
+    </div>
+
+    <div class="quiz-card-footer">
+        <span id="questioncount">
+
+        </span>
+
+        <button id="nextbutton" onclick="nextQuestion()" type="button" class="btn btn-secondary" disabled>Nächste Frage</button>
+        </div>
+    `;
 }
