@@ -65,6 +65,9 @@ let questions = [
 
 let i = 0;
 let rightanswers = 0;
+let AUDIO_SUCCESS = new Audio('audio/success.mp3');
+let AUDIO_FAILURE = new Audio('audio/fail.mp3');
+let AUDIO_ENDSCREEN = new Audio('audio/yay.mp3');
 
 
 //<-------------------------------------------- main functions ----------------------------------------------------------->
@@ -103,10 +106,12 @@ function answer(sel){
 
     if(sel == idOfRightAnswer){
         document.getElementById(`answer${sel}`).parentNode.classList.add('bg-success');
+        AUDIO_SUCCESS.play();
         rightanswers++;
     }else {
         document.getElementById(`answer${sel}`).parentNode.classList.add('bg-danger');
         document.getElementById(`answer${idOfRightAnswer}`).parentNode.classList.add('bg-success');
+        AUDIO_FAILURE.play();
     };
 
     document.getElementById('nextbutton').disabled = false;
@@ -146,6 +151,8 @@ function showEndscreen(){
     <span>Ihr Ergebnis: <b>${rightanswers}</b> von <b>${questions.length}</b> richtig beantwortet!</span>
     <button onclick="reloadGame()" class="btn btn-secondary">Nochmal spielen!</button>
     `;
+
+    AUDIO_ENDSCREEN.play();
 
 }
 
