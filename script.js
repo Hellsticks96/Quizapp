@@ -79,17 +79,10 @@ function init(){
 }
 
 function nextQuestion(){
-    if(i == questions.length -1){
+    if(gameIsOver()){
         showEndscreen();
-
-        document.getElementById('progressbar').innerHTML = `100%`;
-        document.getElementById('progressbar').style = `width: 100%`;
     }else {
-        let progress = (i +1) / questions.length;
-        progress = Math.round(progress * 100);
-    
-        document.getElementById('progressbar').innerHTML = `${progress}%`;
-        document.getElementById('progressbar').style = `width: ${progress}%`;
+        updateProgessbar();
         i++;
     };
 
@@ -104,14 +97,10 @@ function answer(sel){
     let question = questions[i];
     let idOfRightAnswer = question['right_answer'];
 
-    if(sel == idOfRightAnswer){
-        document.getElementById(`answer${sel}`).parentNode.classList.add('bg-success');
-        AUDIO_SUCCESS.play();
-        rightanswers++;
+    if(answerIsRight(idOfRightAnswer)){
+        answeredRight();
     }else {
-        document.getElementById(`answer${sel}`).parentNode.classList.add('bg-danger');
-        document.getElementById(`answer${idOfRightAnswer}`).parentNode.classList.add('bg-success');
-        AUDIO_FAILURE.play();
+        answeredWrong();
     };
 
     document.getElementById('nextbutton').disabled = false;
@@ -145,14 +134,11 @@ function showEndscreen(){
     endscreen.classList.add('endscreen-design');
     endscreen.innerHTML = '';
 
-    endscreen.innerHTML += /*html*/`
-    <h2>Herzlichen Glückwunsch!</h2>
-    <h4>Sie haben das Quiz erfolgreich beendet!</h4>
-    <span>Ihr Ergebnis: <b>${rightanswers}</b> von <b>${questions.length}</b> richtig beantwortet!</span>
-    <button onclick="reloadGame()" class="btn btn-secondary">Nochmal spielen!</button>
-    `;
+    returnEndscreenHtml();
 
     AUDIO_ENDSCREEN.play();
+    document.getElementById('progressbar').innerHTML = `100%`;
+    document.getElementById('progressbar').style = `width: 100%`;
 
 }
 
@@ -161,6 +147,30 @@ function showEndscreen(){
 
 function returnQuestionCountHTML(){
     return `Frage <b>${i+1}</b> von <b>${questions.length}</b>`;
+}
+
+function answerIsRight(idOfRightAnswer){
+    return sel == idOfRightAnswer;
+}
+
+function answeredRight(){
+        document.getElementById(`answer${sel}`).parentNode.classList.add('bg-success');
+        AUDIO_SUCCESS.play();
+        rightanswers++;
+}
+
+function answeredWrong(){
+        document.getElementById(`answer${sel}`).parentNode.classList.add('bg-danger');
+        document.getElementById(`answer${idOfRightAnswer}`).parentNode.classList.add('bg-success');
+        AUDIO_FAILURE.play();
+}
+
+function updateProgessbar(){ 
+    let progress = (i +1) / questions.length;
+    progress = Math.round(progress * 100);
+
+    document.getElementById('progressbar').innerHTML = `${progress}%`;
+    document.getElementById('progressbar').style = `width: ${progress}%`;
 }
 
 function resetButtons(){
@@ -185,44 +195,50 @@ function reloadGame(){
     init();
 }
 
+function gameIsOver(){
+    return i == questions.length -1;
+}
+
+function returnEndscreenHtml(){
+    return endscreen.innerHTML += /*html*/`
+    <h2>Herzlichen Glückwunsch!</h2>
+    <h4>Sie haben das Quiz erfolgreich beendet!</h4>
+    <span>Ihr Ergebnis: <b>${rightanswers}</b> von <b>${questions.length}</b> richtig beantwortet!</span>
+    <button onclick="reloadGame()" class="btn btn-secondary">Nochmal spielen!</button>
+    `;
+}
+
 function restoreCard(){
     let card = document.getElementById('questionanswercontainer');
     card.innerHTML = '';
 
     card.innerHTML += /*html*/`
     <h5 id="questioncontainer" class="card-title"></h5>
-
     <div id="answercontainer">
         <div class="card answer-card mb-2" onclick="answer(1)">
             <div id="answer1" class="card-body">
                  Antwort
             </div>
         </div>
-
         <div class="card answer-card mb-2" onclick="answer(2)">
             <div id="answer2" class="card-body">
                  Antwort
             </div>
         </div>
-
         <div class="card answer-card mb-2" onclick="answer(3)">
             <div id="answer3" class="card-body">
                 Antwort
             </div>
         </div>
-
         <div class="card answer-card mb-2" onclick="answer(4)">
             <div id="answer4" class="card-body">
                 Antwort
             </div>
         </div>
     </div>
-
     <div class="quiz-card-footer">
         <span id="questioncount">
-
         </span>
-
         <button id="nextbutton" onclick="nextQuestion()" type="button" class="btn btn-secondary" disabled>Nächste Frage</button>
         </div>
     `;
