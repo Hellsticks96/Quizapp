@@ -73,12 +73,19 @@ let AUDIO_ENDSCREEN = new Audio('audio/yay.mp3');
 //<-------------------------------------------- main functions ----------------------------------------------------------->
 
 function init(){
+    const button = document.getElementById('nextbutton');
+    const answers = document.getElementById('answercontainer');
+
+    if(document.getElementById('questionanswercontainer').contains(button, answers)){
     showQuestion();
     showAnswers();
-    showQuestionCount();
+    showQuestionCount();}
 }
 
 function nextQuestion(){
+    const button = document.getElementById('nextbutton');
+    const answers = document.getElementById('answercontainer');
+
     if(gameIsOver()){
         showEndscreen();
     }else {
@@ -86,24 +93,30 @@ function nextQuestion(){
         i++;
     };
 
-    document.getElementById('nextbutton').disabled = true;
-    resetButtons();
+    if(document.getElementById('questionanswercontainer').contains(button)){
+        button.disabled = true;}
+
+    if(document.getElementById('questionanswercontainer').contains(answers)){
+        resetButtons();}
 
     init();
 }
 
 
 function answer(sel){
+    const button = document.getElementById('nextbutton');
     let question = questions[i];
     let idOfRightAnswer = question['right_answer'];
 
-    if(answerIsRight(idOfRightAnswer)){
-        answeredRight();
+    if(answerIsRight(sel, idOfRightAnswer)){
+        answeredRight(sel, idOfRightAnswer);
     }else {
-        answeredWrong();
+        answeredWrong(sel, idOfRightAnswer);
     };
 
-    document.getElementById('nextbutton').disabled = false;
+
+    if(document.getElementById('questionanswercontainer').contains(button)){
+        button.disabled = false;}
 }
 
 
@@ -134,7 +147,7 @@ function showEndscreen(){
     endscreen.classList.add('endscreen-design');
     endscreen.innerHTML = '';
 
-    returnEndscreenHtml();
+    returnEndscreenHtml(endscreen);
 
     AUDIO_ENDSCREEN.play();
     document.getElementById('progressbar').innerHTML = `100%`;
@@ -149,17 +162,17 @@ function returnQuestionCountHTML(){
     return `Frage <b>${i+1}</b> von <b>${questions.length}</b>`;
 }
 
-function answerIsRight(idOfRightAnswer){
+function answerIsRight(sel, idOfRightAnswer){
     return sel == idOfRightAnswer;
 }
 
-function answeredRight(){
+function answeredRight(sel, idOfRightAnswer){
         document.getElementById(`answer${sel}`).parentNode.classList.add('bg-success');
         AUDIO_SUCCESS.play();
         rightanswers++;
 }
 
-function answeredWrong(){
+function answeredWrong(sel, idOfRightAnswer){
         document.getElementById(`answer${sel}`).parentNode.classList.add('bg-danger');
         document.getElementById(`answer${idOfRightAnswer}`).parentNode.classList.add('bg-success');
         AUDIO_FAILURE.play();
@@ -199,7 +212,7 @@ function gameIsOver(){
     return i == questions.length -1;
 }
 
-function returnEndscreenHtml(){
+function returnEndscreenHtml(endscreen){
     return endscreen.innerHTML += /*html*/`
     <h2>Herzlichen Glückwunsch!</h2>
     <h4>Sie haben das Quiz erfolgreich beendet!</h4>
